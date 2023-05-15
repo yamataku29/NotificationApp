@@ -7,15 +7,15 @@
 
 import UIKit
 import FirebaseCore
+import FirebaseMessaging
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
+        Messaging.messaging().delegate = self
+        UNUserNotificationCenter.current().delegate = self
         return true
     }
 
@@ -39,3 +39,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
+extension AppDelegate: MessagingDelegate {}
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    // アプリがフォアグラウンドでプッシュ通知を受信した場合に呼ばれる
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                willPresent notification: UNNotification,
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        let userInfo = notification.request.content.userInfo
+        print(userInfo)
+        completionHandler([.banner, .badge, .sound])
+    }
+
+    // 通知センター等でプッシュ通知をタップした場合に呼ばれる
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                didReceive response: UNNotificationResponse,
+                                withCompletionHandler completionHandler: @escaping () -> Void) {
+        let userInfo = response.notification.request.content.userInfo
+        print(userInfo)
+        completionHandler()
+    }
+}
