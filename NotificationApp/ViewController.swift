@@ -13,14 +13,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         requestPushAuthrization()
-        Installations.installations().installationID { (id, error) in
-            if let error = error {
-                print("‼️Error fetching id: \(error)")
-                return
-            }
-            guard let id = id else { return }
-            print("👀id: \(id)")
-        }
     }
 
 
