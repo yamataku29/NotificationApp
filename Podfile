@@ -6,6 +6,7 @@ target 'NotificationApp' do
   use_frameworks!
   pod 'Firebase'
   pod 'Firebase/Messaging'
+  pod 'FirebaseInAppMessaging'
   pod 'FirebaseInstallations'
   # Pods for NotificationApp
 
