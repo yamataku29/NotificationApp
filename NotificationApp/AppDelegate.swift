@@ -37,12 +37,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // PUSH通知を受け取った時に実行されるメソッド
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
     }
-    
-    func application(_ application: UIApplication,
-                didRegisterForRemoteNotificationsWithDeviceToken
-                    deviceToken: Data) {
-        Messaging.messaging().apnsToken = deviceToken
-    }
 }
 
 extension AppDelegate: MessagingDelegate {}
